@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 public class SysAdmin extends Engineer {
-    String operationSystem;
+    private String operationSystem;
 
     public String getOperationSystem() {
         return operationSystem;

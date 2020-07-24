@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 public class CarMechanic extends Engineer {
-    String trouble;
+    private String trouble;
 
     public String getTrouble() {
         return trouble;
