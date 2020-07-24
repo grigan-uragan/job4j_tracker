@@ -1,4 +1,7 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.profession;
+
+import ru.job4j.tracker.profession.Client;
+import ru.job4j.tracker.profession.Engineer;
 
 public class SysAdmin extends Engineer {
     private String operationSystem;

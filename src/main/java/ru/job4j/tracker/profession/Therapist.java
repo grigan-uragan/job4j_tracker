@@ -1,4 +1,7 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.profession;
+
+import ru.job4j.tracker.profession.Doctor;
+import ru.job4j.tracker.profession.Patient;
 
 public class Therapist extends Doctor {
     private String recipe;
