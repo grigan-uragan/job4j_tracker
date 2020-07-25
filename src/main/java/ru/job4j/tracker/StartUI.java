@@ -31,8 +31,12 @@ public class StartUI {
             } else if (answer == 1) {
                 System.out.println("===== All items =====");
                 Item[] items = tracker.findAll();
-                for (Item item : items) {
-                    System.out.println(item);
+                if (items != null) {
+                    for (Item item : items) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("Is Empty");
                 }
             } else if (answer == 2) {
                 System.out.println("==== Edit item ====");
@@ -54,13 +58,24 @@ public class StartUI {
                 System.out.println("Please enter Id:");
                 int id  = Integer.parseInt(scanner.nextLine());
                 Item item = tracker.findById(id);
-                System.out.println(item);
+                if (item != null) {
+                    System.out.println(item);
+                } else {
+                    System.out.println("Sorry, item by id = " + id + " not found");
+                }
             } else if (answer == 5) {
                 System.out.println("==== Find items by name ====");
                 System.out.println("Please enter name:");
                 String name = scanner.nextLine();
                 Item[] items = tracker.findByName(name);
-                System.out.println(Arrays.toString(items));
+                if (items != null) {
+                    for (Item item : items) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("Items not found!");
+                }
+
             } else if (answer == 6) {
                 break;
             }
