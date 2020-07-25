@@ -16,11 +16,20 @@ public class StartUI {
         System.out.println();
         System.out.println("Please selected your choice");
     }
-
+    private int answerNum(Scanner scanner) {
+        int res;
+        try {
+            res = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException ex) {
+            System.out.println("try again");
+          res = answerNum(scanner);
+        }
+        return res;
+    }
     public void init(Scanner scanner, Tracker tracker) {
         while (true) {
             this.showMenu();
-            int answer = Integer.parseInt(scanner.nextLine());
+            int answer = answerNum(scanner);
             if (answer == 0) {
                 System.out.println("===== Create new item ========");
                 System.out.println("Please enter name: ");
@@ -41,7 +50,7 @@ public class StartUI {
             } else if (answer == 2) {
                 System.out.println("==== Edit item ====");
                 System.out.println("Please enter Id:");
-                int id  = Integer.parseInt(scanner.nextLine());
+                int id  = answerNum(scanner);
                 System.out.println("Please enter new name:");
                 String name = scanner.nextLine();
                 Item item = new Item(id, name);
@@ -50,13 +59,13 @@ public class StartUI {
             } else if (answer == 3) {
                 System.out.println("====== Delete =====");
                 System.out.println("Please enter id item for delete:");
-                int id = Integer.parseInt(scanner.nextLine());
+                int id = answerNum(scanner);
                 boolean isDone = tracker.delete(id);
                 System.out.println(isDone ? "item already delete" : "invalid command");
             } else if (answer == 4) {
                 System.out.println("==== Find item by Id =====");
                 System.out.println("Please enter Id:");
-                int id  = Integer.parseInt(scanner.nextLine());
+                int id  = answerNum(scanner);
                 Item item = tracker.findById(id);
                 if (item != null) {
                     System.out.println(item);
