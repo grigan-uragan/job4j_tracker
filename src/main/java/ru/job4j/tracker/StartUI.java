@@ -1,8 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class StartUI {
 
     public void init(Input input, Tracker tracker, UserAction[] actions) {
@@ -15,7 +12,7 @@ public class StartUI {
         }
     }
 
-    public void showMenu (UserAction[] actions) {
+    public void showMenu(UserAction[] actions) {
         for (int i = 0; i < actions.length; i++) {
             System.out.println(i + ". " + actions[i].name());
         }
