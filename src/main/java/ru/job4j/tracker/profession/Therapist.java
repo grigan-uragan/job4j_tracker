@@ -15,7 +15,7 @@ public class Therapist extends Doctor {
     }
 
     public void tread(Patient patient) {
-        if ("Head".equals(patient.getHurtBodyPart())){
+        if ("Head".equals(patient.getHurtBodyPart())) {
             setRecipe("Analgin");
         } else {
             setRecipe("Drink more water");

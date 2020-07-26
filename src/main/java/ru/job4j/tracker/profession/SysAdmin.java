@@ -14,7 +14,7 @@ public class SysAdmin extends Engineer {
         this.operationSystem = operationSystem;
     }
 
-    public void fix(Client client){
+    public void fix(Client client) {
         if (client.getId() % 2 == 0) {
             setOperationSystem("Windows");
         } else {
