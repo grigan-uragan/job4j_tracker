@@ -17,7 +17,7 @@ public class StartUI {
                 action = actions[select];
                 run = action.execute(input, tracker);
             } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+                output.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
             }
         }
     }
