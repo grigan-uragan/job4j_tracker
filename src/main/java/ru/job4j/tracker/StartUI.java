@@ -12,8 +12,13 @@ public class StartUI {
         while (run) {
             this.showMenu(actions);
             int select = input.askInt("Select your choice: ");
-            UserAction action = actions[select];
-            run = action.execute(input, tracker);
+            UserAction action = null;
+            try {
+                action = actions[select];
+                run = action.execute(input, tracker);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+            }
         }
     }
 
@@ -26,7 +31,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
         Tracker tracker = new Tracker();
         UserAction[] actions = {new CreateAction(output), new ShowAllAction(output),
                 new EditAction(output), new DeleteAction(output), new FindByIdAction(output),
