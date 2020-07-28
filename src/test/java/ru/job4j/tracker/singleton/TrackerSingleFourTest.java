@@ -13,5 +13,4 @@ public class TrackerSingleFourTest {
         TrackerSingleFour two = TrackerSingleFour.getInstance();
         assertThat(one.equals(two), is(true));
     }
-
 }
