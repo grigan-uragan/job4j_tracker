@@ -1,6 +1,13 @@
 package ru.job4j.tracker;
 
-public class ValidateInput extends ConsoleInput {
+public class ValidateInput implements Input {
+    private final Input input;
+    private final Output output;
+
+    public ValidateInput(Input input, Output output) {
+        this.input = input;
+        this.output = output;
+    }
 
     @Override
     public int askInt(String question) {
@@ -8,12 +15,17 @@ public class ValidateInput extends ConsoleInput {
         int result = -1;
         do {
             try {
-                result = super.askInt(question);
+                result = input.askInt(question);
                 invalid = false;
             } catch (NumberFormatException ex) {
-                System.out.println("Please enter validate data again.");
+                output.println("Please enter validate data again.");
             }
         } while (invalid);
         return result;
+    }
+
+    @Override
+    public String askString(String question) {
+        return input.askString(question);
     }
 }
