@@ -12,13 +12,12 @@ public class StartUI {
         while (run) {
             this.showMenu(actions);
             int select = input.askInt("Select your choice: ");
-            UserAction action = null;
-            try {
-                action = actions[select];
-                run = action.execute(input, tracker);
-            } catch (ArrayIndexOutOfBoundsException ex) {
+            if (select < 0 || select >= actions.length) {
                 output.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+                continue;
             }
+            UserAction action = actions[select];
+            run = action.execute(input, tracker);
         }
     }
 
