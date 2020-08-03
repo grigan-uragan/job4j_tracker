@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 public class ShowAllAction implements UserAction {
 
     private final Output output;
@@ -15,13 +17,13 @@ public class ShowAllAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        Item[] items = tracker.findAll();
-        if (items.length != 0) {
-            for (Item item : items) {
+        List<Item> list = tracker.findAll();
+        if (list.isEmpty()) {
+            output.println("Is Empty");
+        } else {
+            for (Item item : list) {
                 output.println(item);
             }
-        } else {
-            output.println("Is Empty");
         }
         return true;
     }
