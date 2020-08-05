@@ -56,7 +56,7 @@ public class StartUITest {
         );
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("New Item"));
-        UserAction[] actions = { new DeleteAction(output), new ExitAction()};
+        UserAction[] actions = {new DeleteAction(output), new ExitAction()};
         new StartUI(output).init(input, tracker, actions);
         assertThat(output.toString(), is(
                 "Menu." + System.lineSeparator()
@@ -81,8 +81,8 @@ public class StartUITest {
         };
         new StartUI(output).init(in, tracker, actions);
         assertThat(output.toString(), is(
-                "Menu." + System.lineSeparator() +
-                        "0. Exit" + System.lineSeparator()
+                "Menu." + System.lineSeparator()
+                        + "0. Exit" + System.lineSeparator()
         ));
     }
 
@@ -159,7 +159,7 @@ public class StartUITest {
     public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] { "5", "0" }
+                new String[] {"5", "0"}
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {

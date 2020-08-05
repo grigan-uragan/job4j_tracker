@@ -10,6 +10,6 @@ public class TrackerSingleOneTest {
     public void whenSingleton() {
         TrackerSingleOne one = TrackerSingleOne.INSTANCE;
         TrackerSingleOne two = TrackerSingleOne.INSTANCE;
-        assertThat( one.equals(two), is(true));
+        assertThat(one.equals(two), is(true));
     }
 }
