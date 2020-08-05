@@ -9,27 +9,47 @@ public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
-        if (!users.containsKey(user)) {
-            List<Account> accounts = new ArrayList<>();
-            users.put(user, accounts);
-        }
+        List<Account> accounts = new ArrayList<>();
+        users.putIfAbsent(user, accounts);
     }
 
     public User findByPassport(String passport) {
+        User result  = null;
         for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport));
-            return user;
+            if (passport.equals(user.getPassport())) {
+                result = user;
+            }
         }
-        return null;
+        return result;
     }
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
         if (user != null) {
-          List<Account> list =  users.get(user);
-          if (!list.contains(account)) {
-              users.get(user).add(account);
-          }
+            users.get(user).add(account);
         }
+    }
+
+    public Account findByRequisite(String passport, String requisite) {
+        User user  = findByPassport(passport);
+        if (user == null) {
+            return null;
+        }
+        List<Account> accounts = users.get(user);
+        int index = accounts.indexOf(new Account(requisite, -1));
+        return accounts.get(index);
+    }
+
+    public boolean transferMoney(String srcPassport, String srcRequisite,
+                                 String destPassport, String destRequisite,
+                                 double amount) {
+        Account source = findByRequisite(srcPassport, srcRequisite);
+        Account dest = findByRequisite(destPassport, destRequisite);
+        if (source == null || dest == null || source.getBalance() < amount) {
+            return false;
+        }
+        source.setBalance(source.getBalance() - amount);
+        dest.setBalance(dest.getBalance() + amount);
+        return true;
     }
 }
