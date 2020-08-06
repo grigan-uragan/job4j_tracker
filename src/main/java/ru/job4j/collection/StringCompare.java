@@ -10,13 +10,13 @@ public class StringCompare implements Comparator<String> {
         char[] first = o1.toCharArray();
         char[] second = o2.toCharArray();
         for (int i = 0; i < index; i++) {
-            if (first[i] != second[i]) {
-                result = first[i] > second[i] ? 1 : -1;
+            result = Character.compare(first[i], second[i]);
+            if (result != 0) {
                 break;
             }
         }
-        if (result == 0 && o1.length() != o2.length()) {
-            result = o1.length() > o2.length() ? 1 : -1;
+        if (result == 0) {
+            result = Integer.compare(o1.length(), o2.length());
         }
         return result;
     }
