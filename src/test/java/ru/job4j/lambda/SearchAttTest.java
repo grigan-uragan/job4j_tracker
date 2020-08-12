@@ -19,7 +19,7 @@ public class SearchAttTest {
         List<Attachment> attachmentList = Arrays.asList(
                 one, two, three, four, five
         );
-        List<Attachment> result = SearchAtt.filter(attachmentList, "name");
+        List<Attachment> result = SearchAtt.filter(attachmentList, attachment -> attachment.getName().contains("bug"));
         List<Attachment> expected = Arrays.asList(
                 two, four
         );
@@ -36,7 +36,7 @@ public class SearchAttTest {
         List<Attachment> attachmentList = Arrays.asList(
                 one, two, three, four, five
         );
-        List<Attachment> result = SearchAtt.filter(attachmentList, "Noname");
+        List<Attachment> result = SearchAtt.filter(attachmentList, attachment -> attachment.getSize() > 2);
         List<Attachment> expected = Arrays.asList(
                 three, four, five
         );
