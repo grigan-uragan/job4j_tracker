@@ -67,8 +67,11 @@ public class StartUI {
         }
     }
     public static void main(String[] args) {
+        Item item = new Item(1, "one");
+        System.out.println(item);
         Scanner scanner = new Scanner(System.in);
         Tracker tracker = new Tracker();
         new StartUI().init(scanner, tracker);
+
     }
 }
