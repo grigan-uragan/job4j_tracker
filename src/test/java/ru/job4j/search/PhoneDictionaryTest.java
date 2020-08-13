@@ -20,6 +20,8 @@ public class PhoneDictionaryTest {
         assertThat(persons.get(0).getSurname(), is("Arsentev"));
     }
 
+
+
     @Test
     public void whenFindBySurname() {
         PhoneDictionary phones = new PhoneDictionary();
