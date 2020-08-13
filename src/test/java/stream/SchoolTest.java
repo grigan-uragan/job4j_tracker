@@ -25,8 +25,9 @@ public class SchoolTest {
                 new Student(100, "Vilkova")
         );
         List<Student> result = School.collect(students,
-                student -> student.getScore() > 70);
+                student -> student.getScore() >= 70);
         List<Student> expected = Arrays.asList(
+                new Student(70, "Lisov"),
                 new Student(80, "Lisova"),
                 new Student(90, "Vilkov"),
                 new Student(100, "Vilkova")
@@ -49,11 +50,12 @@ public class SchoolTest {
                 new Student(100, "Vilkova")
         );
         List<Student> result = School.collect(students,
-                student -> student.getScore() <= 70
-                && student.getScore() > 50);
+                student -> student.getScore() < 70
+                && student.getScore() >= 50);
         List<Student> expected = Arrays.asList(
-                new Student(60, "Sidorova"),
-                new Student(70, "Lisov")
+                new Student(50, "Sidorov"),
+                new Student(60, "Sidorova")
+
         );
         assertThat(result, is(expected));
     }
@@ -73,14 +75,13 @@ public class SchoolTest {
                 new Student(100, "Vilkova")
         );
         List<Student> result = School.collect(students,
-                student -> student.getScore() <= 50
+                student -> student.getScore() < 50
                         && student.getScore() > 0);
         List<Student> expected = Arrays.asList(
                 new Student(10, "Ivanov"),
                 new Student(20, "Ivanova"),
                 new Student(30, "Petrov"),
-                new Student(40, "Petrova"),
-                new Student(50, "Sidorov")
+                new Student(40, "Petrova")
         );
         assertThat(result, is(expected));
     }
