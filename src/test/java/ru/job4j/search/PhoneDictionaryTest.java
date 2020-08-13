@@ -3,6 +3,7 @@ package ru.job4j.search;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
@@ -16,7 +17,7 @@ public class PhoneDictionaryTest {
                 new Person("Petr", "Arsentev",
                         "534872", "Bryansk")
         );
-        ArrayList<Person> persons = phones.find("Petr");
+        List<Person> persons = phones.find("Petr");
         assertThat(persons.get(0).getSurname(), is("Arsentev"));
     }
 
@@ -28,7 +29,7 @@ public class PhoneDictionaryTest {
         phones.add(
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
-        ArrayList<Person> persons = phones.find("Ars");
+        List<Person> persons = phones.find("Ars");
         assertThat(persons.get(0).getAddress(), is("Bryansk"));
     }
 
@@ -38,7 +39,7 @@ public class PhoneDictionaryTest {
         phones.add(
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
-        ArrayList<Person> persons = phones.find("Bry");
+        List<Person> persons = phones.find("Bry");
         assertThat(persons.get(0).getSurname(), is("Arsentev"));
     }
 
@@ -48,7 +49,7 @@ public class PhoneDictionaryTest {
         phones.add(
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
-        ArrayList<Person> persons = phones.find("53");
+        List<Person> persons = phones.find("53");
         assertThat(persons.get(0).getSurname(), is("Arsentev"));
     }
 
