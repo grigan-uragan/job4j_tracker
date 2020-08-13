@@ -11,6 +11,6 @@ public class School {
         return students.stream()
                         .filter(predicate)
                         .collect(Collectors.toMap(Student::getSurname,
-                                student -> student, (v1, v2) -> v1 = v2));
+                                student -> student, (v1, v2) -> v2));
     }
 }
