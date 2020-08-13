@@ -3,7 +3,7 @@ package ru.job4j.lambda;
 import java.util.Comparator;
 
 public class StringComp {
-    Comparator<String> comparator = (left, right) -> {
+    private Comparator<String> comparator = (left, right) -> {
         System.out.println("compare: " + left.length() + " : " + right.length());
         return right.length() - left.length();
     };
