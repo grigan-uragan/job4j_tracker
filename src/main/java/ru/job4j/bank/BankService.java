@@ -27,23 +27,23 @@ public class BankService {
         }
     }
 
-    public Account findByRequisite(String passport, String requisite) {
+    public Optional<Account> findByRequisite(String passport, String requisite) {
         Optional<User> user  = findByPassport(passport);
         if (user.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
         Optional<Account> result = users.get(user.get())
                 .stream()
                 .filter(account -> account.getRequisite().equals(requisite))
                 .findFirst();
-        return result.orElse(null);
+        return result;
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite,
                                  double amount) {
-        Account source = findByRequisite(srcPassport, srcRequisite);
-        Account dest = findByRequisite(destPassport, destRequisite);
+        Account source = findByRequisite(srcPassport, srcRequisite).orElse(null);
+        Account dest = findByRequisite(destPassport, destRequisite).orElse(null);
         if (source == null || dest == null || source.getBalance() < amount) {
             return false;
         }
