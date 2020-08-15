@@ -11,7 +11,8 @@ public class BankServiceTest {
         User user = new User("3434", "Petr Arsentev");
         BankService bank = new BankService();
         bank.addUser(user);
-        assertThat(bank.findByPassport("3434"), is(user));
+        User result = bank.findByPassport("3434").isPresent() ? bank.findByPassport("3434").get() : null;
+        assertThat(result, is(user));
     }
 
     @Test

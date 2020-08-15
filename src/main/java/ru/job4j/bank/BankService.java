@@ -1,8 +1,6 @@
 package ru.job4j.bank;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
@@ -12,17 +10,17 @@ public class BankService {
         users.putIfAbsent(user, accounts);
     }
 
-    public User findByPassport(String passport) {
+    public Optional<User> findByPassport(String passport) {
         Optional<User> result = users.keySet().stream()
-                                    .filter(user -> user.getPassport().equals(passport))
-                                    .findFirst();
-        return result.orElse(null);
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst();
+        return result;
     }
 
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            List<Account> list = users.get(user);
+        Optional<User> user = findByPassport(passport);
+        if (user.isPresent()) {
+            List<Account> list = users.get(user.get());
             if (!list.contains(account)) {
                 list.add(account);
             }
@@ -30,11 +28,11 @@ public class BankService {
     }
 
     public Account findByRequisite(String passport, String requisite) {
-        User user  = findByPassport(passport);
-        if (user == null) {
+        Optional<User> user  = findByPassport(passport);
+        if (user.isEmpty()) {
             return null;
         }
-        Optional<Account> result = users.get(user)
+        Optional<Account> result = users.get(user.get())
                 .stream()
                 .filter(account -> account.getRequisite().equals(requisite))
                 .findFirst();
