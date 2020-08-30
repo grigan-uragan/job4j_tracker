@@ -23,44 +23,38 @@ public class Analyze {
     }
 
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
-        Map<String, Double> res = stream
+          return stream
                 .flatMap(pupil -> pupil
                         .getSubjects()
                         .stream())
                 .collect(Collectors
                         .groupingBy(Subject::getName,
-                                Collectors.averagingDouble(Subject::getScore)));
-        List<Tuple> result = new ArrayList<>();
-        for (Map.Entry<String, Double> entry : res.entrySet()) {
-            result.add(new Tuple(entry.getKey(), entry.getValue()));
-        }
-        return result;
+                                Collectors.averagingDouble(Subject::getScore)))
+                  .entrySet()
+                  .stream()
+                  .map(k -> new Tuple(k.getKey(), k.getValue())).collect(Collectors.toList());
+
     }
 
     public static Tuple bestStudent(Stream<Pupil> stream) {
-       Map<String, Double> res = stream.collect(Collectors.groupingBy(Pupil::getName,
+       return stream.collect(Collectors.groupingBy(Pupil::getName,
                 Collectors.summingDouble(p -> p.getSubjects().stream()
                                 .mapToDouble(Subject::getScore).sum()
-                        )));
-       Double max = res.values().stream().max(Double::compareTo).get();
-       for (Map.Entry<String, Double> entry : res.entrySet()) {
-           if (entry.getValue().equals(max)) {
-               return new Tuple(entry.getKey(), entry.getValue());
-           }
-       }
-       return null;
+                        )))
+               .entrySet()
+               .stream()
+               .map(k -> new Tuple(k.getKey(), k.getValue()))
+               .max((t1, t2) -> Double.compare(t1.getScore(), t2.getScore())).get();
+
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
-        Map<String, Double> res = stream.flatMap(pupil -> pupil.getSubjects().stream())
+        return stream.flatMap(pupil -> pupil.getSubjects().stream())
                 .collect(Collectors.groupingBy(Subject::getName,
-                        Collectors.summingDouble(Subject::getScore)));
-        double max = res.values().stream().max(Double::compareTo).get();
-        for (Map.Entry<String, Double> entry : res.entrySet()) {
-            if (entry.getValue() == max) {
-                return new Tuple(entry.getKey(), entry.getValue());
-            }
-        }
-        return null;
+                        Collectors.summingDouble(Subject::getScore)))
+                .entrySet()
+                .stream()
+                .map(k -> new Tuple(k.getKey(), k.getValue()))
+                .max((t1, t2) -> Double.compare(t1.getScore(), t2.getScore())).get();
     }
 }

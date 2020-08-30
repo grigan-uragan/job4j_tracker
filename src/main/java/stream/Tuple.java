@@ -11,6 +11,14 @@ public class Tuple {
         this.score = score;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -27,5 +35,12 @@ public class Tuple {
     @Override
     public int hashCode() {
         return Objects.hash(name, score);
+    }
+
+    @Override
+    public String toString() {
+        return "Tuple{"
+                + "name='" + name + '\''
+                + ", score=" + score + '}';
     }
 }
