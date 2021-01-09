@@ -16,8 +16,8 @@ public class ShowAllAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
-        List<Item> list = tracker.findAll();
+    public boolean execute(Input input, MemTracker memTracker) {
+        List<Item> list = memTracker.findAll();
         if (list.isEmpty()) {
             output.println("Is Empty");
         } else {

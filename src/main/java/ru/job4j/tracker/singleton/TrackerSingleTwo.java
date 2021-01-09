@@ -1,13 +1,13 @@
 package ru.job4j.tracker.singleton;
 
 import ru.job4j.tracker.Item;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.MemTracker;
 
 import java.util.List;
 
 public class TrackerSingleTwo {
     private static TrackerSingleTwo instance;
-    private Tracker tracker = new Tracker();
+    private MemTracker memTracker = new MemTracker();
 
     private TrackerSingleTwo() {
     }
@@ -20,26 +20,26 @@ public class TrackerSingleTwo {
     }
 
     public Item add(Item item) {
-        return tracker.add(item);
+        return memTracker.add(item);
     }
 
     public boolean delete(int id) {
-        return tracker.delete(id);
+        return memTracker.delete(id);
     }
 
     public List<Item> findAll() {
-        return tracker.findAll();
+        return memTracker.findAll();
     }
 
     public Item findById(int id) {
-        return tracker.findById(id);
+        return memTracker.findById(id);
     }
 
     public List<Item> findByName(String name) {
-        return tracker.findByName(name);
+        return memTracker.findByKey(name);
     }
 
     public boolean replace(int id, Item item) {
-        return tracker.replace(id, item);
+        return memTracker.replace(id, item);
     }
 }

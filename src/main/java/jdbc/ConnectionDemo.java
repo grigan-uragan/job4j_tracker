@@ -10,9 +10,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionDemo {
-    private static final String URL = "jdbc:postgresql://localhost:5432/tracker_db";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "password";
+    private static Properties properties;
+    //private static final String URL = "jdbc:postgresql://localhost:5432/tracker_db";
+    //private static final String USERNAME = "postgres";
+    //private static final String PASSWORD = "password";
 
     private static Properties loadPropertiesFile(String url) throws IOException {
         Properties properties = new Properties();
@@ -25,16 +26,21 @@ public class ConnectionDemo {
 
     public static void main(String[] args) {
         try {
+            properties = loadPropertiesFile("src/main/resources/app.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        try (Connection connection = DriverManager.getConnection(URL,
-                loadPropertiesFile("src/main/resources/app.properties"))) {
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("url"),
+                properties)) {
             DatabaseMetaData metaData = connection.getMetaData();
             System.out.println(metaData.getURL());
             System.out.println(metaData.getUserName());
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

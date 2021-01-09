@@ -5,12 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
-public class TrackerSingleThreeTest {
+public class MemTrackerSingleFourTest {
 
     @Test
     public void whenSingleton() {
-        TrackerSingleThree one = TrackerSingleThree.getInstance();
-        TrackerSingleThree two = TrackerSingleThree.getInstance();
+        TrackerSingleFour one = TrackerSingleFour.getInstance();
+        TrackerSingleFour two = TrackerSingleFour.getInstance();
         assertThat(one.equals(two), is(true));
     }
 }
