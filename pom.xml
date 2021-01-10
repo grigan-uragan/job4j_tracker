@@ -20,6 +20,16 @@
             </properties>
         </profile>
         <profile>
+            <id>travis</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <db.url>jdbc:postgresql://localhost:5432/tracker_db</db.url>
+            <db.username>postgres</db.username>
+            <db.password></db.password>
+            <db.driver>org.postgresql.Driver</db.driver>
+        </profile>
+        <profile>
             <id>production</id>
             <properties>
                 <db.url>jdbc:postgresql://localhost:5432/tracker_db</db.url>
