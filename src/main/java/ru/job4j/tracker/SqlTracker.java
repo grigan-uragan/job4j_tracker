@@ -2,7 +2,6 @@ package ru.job4j.tracker;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +29,11 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        init();
         boolean result = false;
         try (PreparedStatement statement = connection.prepareStatement(
                 "insert into items (name) values (?)")) {
             statement.setString(1, item.getName());
             result = statement.executeUpdate() > 0;
-            result = true;
         } catch (SQLException e) {
             System.out.println("Some problem with preparedStatement or connection");
             e.printStackTrace();
@@ -46,7 +43,6 @@ public class SqlTracker implements Store {
 
     @Override
     public boolean replace(int id, Item item) {
-        init();
         boolean result = false;
         try (PreparedStatement statement = connection.prepareStatement(
                 "update items set name = (?) where id = (?)")) {
@@ -62,7 +58,6 @@ public class SqlTracker implements Store {
 
     @Override
     public boolean delete(int id) {
-        init();
         boolean result = false;
         try (PreparedStatement statement = connection.prepareStatement(
                 "delete from items where id = (?)")) {
@@ -77,7 +72,6 @@ public class SqlTracker implements Store {
 
     @Override
     public List<Item> findAll() {
-        init();
         ArrayList<Item> result = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
                 "select * from items")) {
@@ -95,7 +89,6 @@ public class SqlTracker implements Store {
 
     @Override
     public List<Item> findByKey(String key) {
-        init();
         List<Item> result = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
                 "select * from items where name = (?)")) {
@@ -112,7 +105,6 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        init();
         Item result = new Item();
         try (PreparedStatement statement = connection.prepareStatement(
                 "select * from items where id = (?)")) {
