@@ -10,6 +10,10 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection connection;
 
+    public SqlTracker(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public void init() {
         try (FileInputStream inputStream = new FileInputStream(
@@ -29,16 +33,23 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        boolean result = false;
+        Item result = new Item();
         try (PreparedStatement statement = connection.prepareStatement(
-                "insert into items (name) values (?)")) {
+                "insert into items (id, name) values (default, (?))",
+                Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
-            result = statement.executeUpdate() > 0;
+            statement.executeUpdate();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    result.setId(generatedKeys.getInt("id"));
+                    result.setName(generatedKeys.getString("name"));
+                }
+            }
         } catch (SQLException e) {
             System.out.println("Some problem with preparedStatement or connection");
             e.printStackTrace();
         }
-        return result ? item : null;
+        return result;
     }
 
     @Override
@@ -107,7 +118,7 @@ public class SqlTracker implements Store {
     public Item findById(int id) {
         Item result = new Item();
         try (PreparedStatement statement = connection.prepareStatement(
-                "select * from items where id = (?)")) {
+                "select * from items where id = (?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
