@@ -33,7 +33,6 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        Item result = new Item();
         try (PreparedStatement statement = connection.prepareStatement(
                 "insert into items (id, name) values (default, (?))",
                 Statement.RETURN_GENERATED_KEYS)) {
@@ -41,15 +40,14 @@ public class SqlTracker implements Store {
             statement.executeUpdate();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    result.setId(generatedKeys.getInt("id"));
-                    result.setName(generatedKeys.getString("name"));
+                    item.setId(generatedKeys.getInt("id"));
                 }
             }
         } catch (SQLException e) {
             System.out.println("Some problem with preparedStatement or connection");
             e.printStackTrace();
         }
-        return result;
+        return item;
     }
 
     @Override
@@ -118,7 +116,7 @@ public class SqlTracker implements Store {
     public Item findById(int id) {
         Item result = new Item();
         try (PreparedStatement statement = connection.prepareStatement(
-                "select * from items where id = (?)", Statement.RETURN_GENERATED_KEYS)) {
+                "select * from items where id = (?)")) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
