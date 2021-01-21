@@ -14,11 +14,11 @@ public class EditAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
+    public boolean execute(Input input, Store store) {
         int id  = input.askInt("Please enter Id:");
         String name = input.askString("Please enter new name:");
         Item item = new Item(id, name);
-        boolean isDone = memTracker.replace(id, item);
+        boolean isDone = store.replace(id, item);
         output.println(isDone ? "edit is done" : "invalid command");
         return true;
     }

@@ -7,7 +7,12 @@ public class ExitAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
+    public boolean execute(Input input, Store store) {
+        try {
+            store.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

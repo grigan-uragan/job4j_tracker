@@ -13,9 +13,9 @@ public class DeleteAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
+    public boolean execute(Input input, Store store) {
         int id = input.askInt("Please enter id item for delete:");
-        boolean isDone = memTracker.delete(id);
+        boolean isDone = store.delete(id);
         output.println(isDone ? "item already delete" : "invalid command");
         return true;
     }
