@@ -5,11 +5,22 @@ import java.util.*;
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
 
+    /**
+     * Method add new User in
+     * map {@link #users}
+     * @param user client of bank
+     */
     public void addUser(User user) {
         List<Account> accounts = new ArrayList<>();
         users.putIfAbsent(user, accounts);
     }
 
+    /**
+     * method try find user use passport data
+     * @param passport user data
+     * @return Optional user if user contains in users,
+     * or empty Optional if lose
+     */
     public Optional<User> findByPassport(String passport) {
         Optional<User> result = users.keySet().stream()
                 .filter(user -> user.getPassport().equals(passport))
@@ -17,6 +28,13 @@ public class BankService {
         return result;
     }
 
+    /**
+     * method try add account to user account list if
+     * user present in {@link #users} and don't have same
+     * account in List of accounts
+     * @param passport user data
+     * @param account user account, where user hold money
+     */
     public void addAccount(String passport, Account account) {
         Optional<User> user = findByPassport(passport);
         if (user.isPresent()) {
@@ -27,6 +45,13 @@ public class BankService {
         }
     }
 
+    /**
+     * method find Account by user passport data
+     * and account requisite data
+     * @param passport user data
+     * @param requisite account data
+     * @return Optional Account if present or empty Optional if lose
+     */
     public Optional<Account> findByRequisite(String passport, String requisite) {
         Optional<User> user = findByPassport(passport);
         if (user.isEmpty()) {
@@ -39,6 +64,17 @@ public class BankService {
         return result;
     }
 
+    /**
+     * method create transaction from first user to second user
+     * used user passport data and account requisite data
+     * {@see findByRequisite}
+     * @param srcPassport from user data
+     * @param srcRequisite account data
+     * @param destPassport to user data
+     * @param destRequisite to account data
+     * @param amount money for transfer
+     * @return {@code true} if transaction complete else return {@code false}
+     */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite,
                                  double amount) {
