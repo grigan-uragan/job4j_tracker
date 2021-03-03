@@ -1,12 +1,16 @@
 package ru.job4j.tracker;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "items")
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
 
     public Item() {
     }
@@ -38,10 +42,6 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
     }
 
     @Override
