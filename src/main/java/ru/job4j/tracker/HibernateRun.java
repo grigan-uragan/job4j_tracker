@@ -18,6 +18,8 @@ public class HibernateRun {
             SessionFactory factory =
                     new MetadataSources(registry).buildMetadata().buildSessionFactory();
             Item item = create(new Item("Learn Hibernate"), factory);
+            create(new Item("first_item", "this first item"), factory);
+            create(new Item("second_item", "next item after first_item"), factory);
             System.out.println(item);
             item.setName("After update");
             update(item, factory);
